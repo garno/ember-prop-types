@@ -37,14 +37,6 @@ export default function (validators, ctx, name, value, def, logErrors, throwErro
     return validators[typeDef.type](ctx, `${name}.${key}`, objectValue, typeDef, logErrors, throwErrors)
   })
 
-  valid = valid && Object.keys(value).every((key) => {
-    const keyIsKnown = (key in typeDefs)
-    if (!keyIsKnown && logErrors) {
-      logger.warn(ctx, `Property ${name} has an unknown key: ${key}`, throwErrors)
-    }
-    return keyIsKnown
-  })
-
   if (!valid && logErrors) {
     logger.warn(ctx, `Property ${name} does not match the given shape`, throwErrors)
   }
